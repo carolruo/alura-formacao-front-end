@@ -1,19 +1,21 @@
 import { Cliente } from './Cliente.js';
-import { ContaCorrente } from './Conta/ContaCorrente.js';
-import { ContaPoupanca } from './Conta/ContaPoupanca.js';
-import { ContaSalario } from './Conta/ContaSalario.js';
+import { Gerente } from './Funcionarios/Gerente.js';
+import { Diretor } from './Funcionarios/Diretor.js';
+import { SistemaAutenticacao } from './SistemaAutenticacao.js';
 
-//o cliente é um objeto criado a partir do molde da classe, ou, o cliente é uma instancia da classe, instanciamos um obj a partir dessa classe usando o operador new
-const cliente1 = new Cliente('Ricardo', 11122233345);
-// cliente1.nome = 'Ricardo';
-// cliente1.cpf = 11122233309;
-//não preciso mais declarar as duas linhas acima, pois declarei dentro do construtor ()
+const diretor = new Diretor("Rodrigo", 10000, 12345678900);
+diretor.cadastrarSenha("123456")
+const gerente = new Gerente("Ricardo", 5000, 12378945601);
+gerente.cadastrarSenha("123");
 
-const contaCorrente1 = new ContaCorrente(cliente1, 1001);
-const contaPoupanca1 = new ContaPoupanca(0, cliente1, 1001);
-const contaSalario1 = new ContaSalario(cliente1);
+const cliente = new Cliente("Lais", 78945612379, "456");
+const gerenteEstaLogado = SistemaAutenticacao.login(gerente, "123");
+const diretorEstaLogado = SistemaAutenticacao.login(diretor, "123456");
 
-contaCorrente1.depositar(500);
-contaPoupanca1.sacar(100);
 
-console.log();
+const clienteEstaLogado = SistemaAutenticacao.login(cliente, "456");
+
+console.log(gerenteEstaLogado, diretorEstaLogado, clienteEstaLogado);
+
+//Resposta esperada do console: true true true
+//SistemaAutenticacao.login : nao foi preciso instanciar o metodo, apenas indicar que ele pertence ao SistemaAutenticacao, pois ele é um metodo estatico
